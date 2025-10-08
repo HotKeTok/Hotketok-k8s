@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: auth-service-config
+  namespace: hotketok
+
+data:
+  application-prod.yml: |
+    server:
+      port: 8087
+    
+    spring:
+      application:
+        name: auth-service
+      
+      data:
+        redis:
+          host: ${REDIS_HOST:redis}
+          port: ${REDIS_PORT:6379}
+      
+      cloud:
+        kubernetes:
+          discovery:
+            enabled: true
+            all-namespaces: true   # 다른 서비스 namespace까지 탐색 가능
+          config:
+            enabled: true
+            sources:
+              - namespace: hotketok
+                name: auth-service-config
+    eureka:
+      client:
+        enabled: false
+        
+    jwt:
+      secret: ${JWT_SECRET}
+      access-exp-ms: ${JWT_ACCESS_EXP_MS}      # 3h
+      refresh-exp-ms: ${JWT_REFRESH_EXP_MS}   # 14d
+    
+    coolsms:
+      api:
+        key: ${SMS_API_KEY}
+        secret: ${SMS_API_SECRET_KEY}
+        number: ${SMS_PHONE_NUMBER}
+    
+    client:
+      user-service:
+        url: http://user-service.hotketok.svc.cluster.local:8088
+    
+    logging:
+      level:
+        org.hibernate.SQL: debug

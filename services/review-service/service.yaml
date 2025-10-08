@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: review-service
+  namespace: hotketok
+spec:
+  type: ClusterIP
+  selector:
+    app: review-service
+  ports:
+    - port: 8095
+      targetPort: 8095

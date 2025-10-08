@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-service-config
+  namespace: hotketok
+data:
+  application-prod.yml: |
+    server:
+      port: 8088
+    
+    spring:
+      application:
+        name: user-service
+      
+      servlet:
+        multipart:
+          max-file-size: 50MB
+          max-request-size: 200MB
+      
+      datasource:
+        url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:user}?serverTimezone=Asia/Seoul
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      jpa:
+        hibernate:
+          ddl-auto: update
+        properties:
+          hibernate:
+            format_sql: true
+            dialect: org.hibernate.dialect.MySQL8Dialect
+            
+      cloud:
+        kubernetes:
+          discovery:
+            enabled: true
+            all-namespaces: true
+          config:
+            enabled: true
+            sources:
+              - namespace: hotketok
+                name: user-service-config
+    
+    eureka:
+      client:
+        enabled: false
+
+    logging:
+      level:
+        org.hibernate.SQL: debug
+    
+    client:
+      house-service:
+        url: http://house-service.hotketok.svc.cluster.local:8090
+      infra-service:
+        url: http://infra-service.hotketok.svc.cluster.local:8089

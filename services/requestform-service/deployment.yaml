@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: requestform-service-deploy
+  namespace: hotketok
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: requestform-service
+
+  template:
+    metadata:
+      labels:
+        app: requestform-service
+    spec:
+      imagePullSecrets:
+        - name: ncr-secret
+      containers:
+        - name: requestform-service
+          image: hotketok-reg-real.kr.ncr.ntruss.com/hotketok/hotketok-requestform-service:latest
+          ports:
+            - containerPort: 8093
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: SPRING_CONFIG_LOCATION
+              value: file:/config/
+          envFrom:
+            - secretRef:
+                name: requestform-service-secret
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+              readOnly: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: requestform-service-config

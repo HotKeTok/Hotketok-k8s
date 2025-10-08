@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: commonbill-service-deploy
+  namespace: hotketok
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: commonbill-service
+
+  template:
+    metadata:
+      labels:
+        app: commonbill-service
+    spec:
+      imagePullSecrets:
+        - name: ncr-secret
+      containers:
+        - name: commonbill-service
+          image: hotketok-reg-real.kr.ncr.ntruss.com/hotketok/hotketok-commonbill-service:latest
+          ports:
+            - containerPort: 8092
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: SPRING_CONFIG_LOCATION
+              value: file:/config/
+          envFrom:
+            - secretRef:
+                name: commonbill-service-secret
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+              readOnly: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: commonbill-service-config

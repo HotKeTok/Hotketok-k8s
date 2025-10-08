@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: requestform-service-config
+  namespace: hotketok
+data:
+  application-prod.yml: |
+    server:
+      port: 8093
+    
+    spring:
+      application:
+        name: requestform-service
+      
+      servlet:
+        multipart:
+          max-file-size: 50MB
+          max-request-size: 200MB
+      
+      datasource:
+        url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:requestform}?serverTimezone=Asia/Seoul
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      jpa:
+        hibernate:
+          ddl-auto: update
+        properties:
+          hibernate:
+            format_sql: true
+            dialect: org.hibernate.dialect.MySQL8Dialect
+      
+      cloud:
+        kubernetes:
+          discovery:
+            enabled: true
+            all-namespaces: true
+          config:
+            enabled: true
+            sources:
+              - namespace: hotketok
+                name: requestform-service-config
+    
+    eureka:
+      client:
+        enabled: false
+
+    logging:
+      level:
+        org.hibernate.SQL: debug
+    
+    openai:
+      model: ${GPT_MODEL}
+      api:
+        key: ${GPT_API_KEY}
+        url: ${GPT_API_URL}
+    
+    client:
+      infra-service:
+        url: http://infra-service.hotketok.svc.cluster.local:8089
+      user-service:
+        url: http://user-service.hotketok.svc.cluster.local:8088
+      house-service:
+        url: http://house-service.hotketok.svc.cluster.local:8090

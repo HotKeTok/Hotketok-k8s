@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: commonbill-service-config
+  namespace: hotketok
+
+data:
+  application-prod.yml: |
+    server:
+      port: 8092
+    
+    spring:
+      application:
+        name: commonbill-service
+      
+      datasource:
+        url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:commonbill}?serverTimezone=Asia/Seoul
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      jpa:
+        hibernate:
+          ddl-auto: update
+        properties:
+          hibernate:
+            format_sql: true
+            dialect: org.hibernate.dialect.MySQL8Dialect
+      
+      cloud:
+        kubernetes:
+          discovery:
+            enabled: true
+            all-namespaces: true
+          config:
+            enabled: true
+            sources:
+              - namespace: hotketok
+                name: commonbill-service-config
+                
+    eureka:
+      client:
+        enabled: false
+        
+    logging:
+      level:
+        org.hibernate.SQL: debug
+    
+    client:
+      user-service:
+        url: http://user-service.hotketok.svc.cluster.local:8088

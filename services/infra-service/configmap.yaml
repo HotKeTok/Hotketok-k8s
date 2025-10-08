@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: infra-service-config
+  namespace: hotketok
+data:
+  application-prod.yml: |
+    server:
+      port: 8089
+    
+    spring:
+      application:
+        name: infra-service
+      
+      servlet:
+        multipart:
+          max-file-size: 50MB
+          max-request-size: 200MB
+      
+      cloud:
+        kubernetes:
+          discovery:
+            enabled: true
+            all-namespaces: true
+          config:
+            enabled: true
+            sources:
+              - namespace: hotketok
+                name: infra-service-config
+    
+    cloud:
+      provider: aws
+      
+    eureka:
+      client:
+        enabled: false
+        
+    aws:
+      s3:
+        bucket-name: hotketok-aws-s3
+        region: ap-northeast-2
+        credentials:
+          accessKey: ${S3_ACCESSKEY}
+          secretKey: ${S3_SECRETKEY}
+    
+    searchApi:
+      secretKey: ${SEARCH_API_KEY}
+    
+    logging:
+      level:
+        org.hibernate.SQL: debug
+        com.hotketok: info

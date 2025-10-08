@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: post-service-deploy
+  namespace: hotketok
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: post-service
+
+  template:
+    metadata:
+      labels:
+        app: post-service
+    spec:
+      imagePullSecrets:
+        - name: ncr-secret
+      containers:
+        - name: post-service
+          image: hotketok-reg-real.kr.ncr.ntruss.com/hotketok/hotketok-post-service:latest
+          ports:
+            - containerPort: 8097
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: SPRING_CONFIG_LOCATION
+              value: file:/config/
+          envFrom:
+            - secretRef:
+                name: post-service-secret
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+              readOnly: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: post-service-config

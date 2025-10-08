@@ -1,0 +1,8 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: spring-cloud-kubernetes-reader
+rules:
+  - apiGroups: [""] # Core API Group (ConfigMap, Secret, Endpoints, Service가 속함)
+    resources: ["configmaps", "secrets", "endpoints", "services","pods"]
+    verbs: ["get", "list", "watch"]

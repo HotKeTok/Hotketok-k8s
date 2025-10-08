@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: vendor-service-deploy
+  namespace: hotketok
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vendor-service
+
+  template:
+    metadata:
+      labels:
+        app: vendor-service
+    spec:
+      imagePullSecrets:
+        - name: ncr-secret
+      containers:
+        - name: vendor-service
+          image: hotketok-reg-real.kr.ncr.ntruss.com/hotketok/hotketok-vendor-service:latest
+          ports:
+            - containerPort: 8099
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: SPRING_CONFIG_LOCATION
+              value: file:/config/
+          envFrom:
+            - secretRef:
+                name: vendor-service-secret
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+              readOnly: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: vendor-service-config

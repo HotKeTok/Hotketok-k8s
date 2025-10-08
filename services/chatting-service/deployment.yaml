@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: chatting-service-deploy
+  namespace: hotketok
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chatting-service
+
+  template:
+    metadata:
+      labels:
+        app: chatting-service
+    spec:
+      imagePullSecrets:
+        - name: ncr-secret
+      containers:
+        - name: chatting-service
+          image: hotketok-reg-real.kr.ncr.ntruss.com/hotketok/hotketok-chatting-service:latest
+          ports:
+            - containerPort: 8096
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: SPRING_CONFIG_LOCATION
+              value: file:/config/
+          envFrom:
+            - secretRef:
+                name: chatting-service-secret
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+              readOnly: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: chatting-service-config

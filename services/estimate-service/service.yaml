@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: estimate-service
+  namespace: hotketok
+spec:
+  type: ClusterIP
+  selector:
+    app: estimate-service
+  ports:
+    - port: 8094
+      targetPort: 8094

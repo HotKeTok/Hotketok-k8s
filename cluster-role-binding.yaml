@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: hotketok-default-sa-binding
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: hotketok # hotketok 네임스페이스의 기본 SA에게 적용
+roleRef:
+  kind: ClusterRole
+  name: spring-cloud-kubernetes-reader # 위에서 정의한 ClusterRole 이름
+  apiGroup: rbac.authorization.k8s.io
