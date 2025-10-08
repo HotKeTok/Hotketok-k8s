@@ -18,7 +18,7 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
-.idea
+.idea/*
 *.iws
 *.iml
 
@@ -45,3 +45,4 @@ out/
 
 /services/*/secret.yaml
 *-develop.yaml
+hotketok-kube.iml
