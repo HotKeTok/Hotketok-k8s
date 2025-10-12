@@ -29,6 +29,18 @@ data:
           auto-discovery:
             enabled: false
             
+          globalcors:
+            add-to-simple-url-handler-mapping: true
+            cors-configurations:
+              '[/**]':
+                allowedCredentials: true
+                allowedOriginPatterns:
+                  - "http://localhost:*"
+                  - "https://*.hotketok.com"
+                  - "https://*.hotketok-vendor.com"
+                allowedHeaders: "*"
+                allowedMethods: "*"
+          
           routes:
             - id: auth-service
               uri: lb://auth-service
