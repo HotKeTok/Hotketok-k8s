@@ -131,6 +131,22 @@ data:
                   args:
                     allowedRoles:
                       - NONE
+                      - OWNER
+                      - TENANT
+                      - VENDOR
+            
+            - id: estimate-service
+              uri: lb://estimate-service
+              predicates:
+                - Path=/api/estimate-service/**
+                - Method=GET,POST,PUT,DELETE
+              filters:
+                - JwtAuthFilter
+                - name: RoleFilter
+                  args:
+                    allowedRoles:
+                      - OWNER
+                      - TENANT
                       - VENDOR
     
     jwt:

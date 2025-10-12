@@ -33,5 +33,8 @@ data:
       client:
         enabled: false
         
-    jwt:
-      access-token-secret: ${JWT_ACCESS_TOKEN_SECRET}
+    client:
+      requestform-service:
+        url: http://requestform-service.hotketok.svc.cluster.local:8093
+      vendor-service:
+        url: http://vendor-service.hotketok.svc.cluster.local:8099
