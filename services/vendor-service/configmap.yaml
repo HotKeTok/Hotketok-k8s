@@ -50,3 +50,7 @@ data:
         url: http://user-service.hotketok.svc.cluster.local:8088
       infra-service:
         url: http://infra-service.hotketok.svc.cluster.local:8089
+      estimate-service:
+        url: http://estimate-service.hotketok.svc.cluster.local:8094 
+      requestform-service:
+        url: http://requestform-service.hotketok.svc.cluster.local:8093
