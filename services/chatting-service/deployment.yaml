@@ -20,7 +20,7 @@ spec:
         - name: ncr-secret
       containers:
         - name: chatting-service
-          image: hotketok-reg-real.kr.ncr.ntruss.com/hotketok/hotketok-chatting-service:latest
+          image: contest57-registry-real.kr.ncr.ntruss.com/hotketok/hotketok-chatting-service:latest
           ports:
             - containerPort: 8096
           env:

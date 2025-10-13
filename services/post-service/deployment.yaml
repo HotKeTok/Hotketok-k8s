@@ -20,7 +20,7 @@ spec:
         - name: ncr-secret
       containers:
         - name: post-service
-          image: hotketok-reg-real.kr.ncr.ntruss.com/hotketok/hotketok-post-service:latest
+          image: contest57-registry-real.kr.ncr.ntruss.com/hotketok/hotketok-post-service:latest
           ports:
             - containerPort: 8097
           env:

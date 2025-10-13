@@ -20,7 +20,7 @@ spec:
         - name: ncr-secret
       containers:
         - name: commonbill-service
-          image: hotketok-reg-real.kr.ncr.ntruss.com/hotketok/hotketok-commonbill-service:latest
+          image: contest57-registry-real.kr.ncr.ntruss.com/hotketok/hotketok-commonbill-service:latest
           ports:
             - containerPort: 8092
           env:

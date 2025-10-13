@@ -20,7 +20,7 @@ spec:
         - name: ncr-secret
       containers:
         - name: estimate-service
-          image: hotketok-reg-real.kr.ncr.ntruss.com/hotketok/hotketok-estimate-service:latest
+          image: contest57-registry-real.kr.ncr.ntruss.com/hotketok/hotketok-estimate-service:latest
           ports:
             - containerPort: 8094
           env:

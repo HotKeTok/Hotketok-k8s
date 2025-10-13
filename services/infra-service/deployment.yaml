@@ -20,7 +20,7 @@ spec:
         - name: ncr-secret
       containers:
         - name: infra-service
-          image: hotketok-reg-real.kr.ncr.ntruss.com/hotketok/hotketok-infra-service:latest
+          image: contest57-registry-real.kr.ncr.ntruss.com/hotketok/hotketok-infra-service:latest
           ports:
             - containerPort: 8089
           env:

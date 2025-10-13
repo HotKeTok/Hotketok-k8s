@@ -20,7 +20,7 @@ spec:
         - name: ncr-secret
       containers:
         - name: notice-service
-          image: hotketok-reg-real.kr.ncr.ntruss.com/hotketok/hotketok-notice-service:latest
+          image: contest57-registry-real.kr.ncr.ntruss.com/hotketok/hotketok-notice-service:latest
           ports:
             - containerPort: 8098
           env:

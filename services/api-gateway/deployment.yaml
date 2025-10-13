@@ -17,7 +17,7 @@ spec:
         - name: ncr-secret
       containers:
         - name: api-gateway-service
-          image: hotketok-reg-real.kr.ncr.ntruss.com/hotketok/hotketok-api-gateway-service:latest
+          image: contest57-registry-real.kr.ncr.ntruss.com/hotketok/hotketok-api-gateway-service:latest
           ports:
             - containerPort: 8000
           env:
