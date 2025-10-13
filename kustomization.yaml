@@ -13,7 +13,7 @@ resources:
   - services/auth-service
   - services/chatting-service
   - services/commonbill-service
-#  - services/estimate-service
+  - services/estimate-service
   - services/house-service
   - services/infra-service
   - services/notice-service
