@@ -45,4 +45,5 @@ out/
 
 /services/*/secret.yaml
 *-develop.yaml
+*-secret.yaml
 hotketok-kube.iml
