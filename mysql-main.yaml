@@ -1,0 +1,97 @@
+# MySQL-main-service
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-main-pvc
+  namespace: hotketok
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: nks-block-storage
+
+---
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: mysql-main-deploy
+  namespace: hotketok
+
+spec:
+  selector:
+    matchLabels:
+      app: mysql-main
+
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql-main
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-main-secret
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-main-secret
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-main-secret
+                  key: MYSQL_PASSWORD
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mysql-main-storage
+              mountPath: /var/lib/mysql
+
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "
+                  sleep 10 &&
+                  mysql -uroot -p$(MYSQL_ROOT_PASSWORD) -e '
+                    CREATE DATABASE IF NOT EXISTS hotketok_post;
+                    CREATE DATABASE IF NOT EXISTS hotketok_user;
+                    CREATE DATABASE IF NOT EXISTS hotketok_house;
+                    CREATE DATABASE IF NOT EXISTS hotketok_chatting;
+                    CREATE DATABASE IF NOT EXISTS hotketok_request;
+                    CREATE DATABASE IF NOT EXISTS hotketok_estimate;
+                    CREATE DATABASE IF NOT EXISTS hotketok_commonbill;
+                    CREATE DATABASE IF NOT EXISTS hotketok_notice;
+                    CREATE DATABASE IF NOT EXISTS hotketok_vendor;
+                    CREATE DATABASE IF NOT EXISTS hotketok_infra;
+                  '
+                "]
+      volumes:
+        - name: mysql-main-storage
+          persistentVolumeClaim:
+            claimName: mysql-main-pvc
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-main-service
+  namespace: hotketok
+spec:
+  type: NodePort
+  selector:
+    app: mysql-main
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: 3306
+      nodePort: 32006
