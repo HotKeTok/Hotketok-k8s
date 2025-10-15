@@ -4,7 +4,7 @@ metadata:
   name: api-gateway-service
   namespace: hotketok
 spec:
-  type: LoadBalancer   # 외부 진입점
+  type: ClusterIP   # 외부 진입점
   selector:
     app: api-gateway-service
   ports:

@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-gateway-ingress
+  namespace: hotketok
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: "letsencrypt"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"   # HTTP → HTTPS 리다이렉트
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - hotketok.shop
+        - hotketok-vendor.shop
+      secretName: hotketok-tls-secret
+
+  rules:
+    - host: hotketok.shop
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway-service
+                port:
+                  number: 8000
+    - host: hotketok-vendor.shop
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway-service
+                port:
+                  number: 8000
