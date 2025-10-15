@@ -56,25 +56,6 @@ spec:
           volumeMounts:
             - name: mysql-main-storage
               mountPath: /var/lib/mysql
-
-          lifecycle:
-            postStart:
-              exec:
-                command: ["/bin/sh", "-c", "
-                  sleep 10 &&
-                  mysql -uroot -p$(MYSQL_ROOT_PASSWORD) -e '
-                    CREATE DATABASE IF NOT EXISTS hotketok_post;
-                    CREATE DATABASE IF NOT EXISTS hotketok_user;
-                    CREATE DATABASE IF NOT EXISTS hotketok_house;
-                    CREATE DATABASE IF NOT EXISTS hotketok_chatting;
-                    CREATE DATABASE IF NOT EXISTS hotketok_request;
-                    CREATE DATABASE IF NOT EXISTS hotketok_estimate;
-                    CREATE DATABASE IF NOT EXISTS hotketok_commonbill;
-                    CREATE DATABASE IF NOT EXISTS hotketok_notice;
-                    CREATE DATABASE IF NOT EXISTS hotketok_vendor;
-                    CREATE DATABASE IF NOT EXISTS hotketok_infra;
-                  '
-                "]
       volumes:
         - name: mysql-main-storage
           persistentVolumeClaim:
