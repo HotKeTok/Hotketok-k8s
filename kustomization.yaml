@@ -22,4 +22,4 @@ resources:
   - services/review-service
   - services/users-service
   - services/vendor-service
-  - mysql-main.yaml
+  - database/mysql-main.yaml
