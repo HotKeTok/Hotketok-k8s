@@ -42,3 +42,9 @@ data:
     logging:
       level:
         org.hibernate.SQL: debug
+
+    client:
+      requestform-service:
+        url: http://localhost:8093
+      user-service:
+        url: http://localhost:8088
