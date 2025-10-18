@@ -46,7 +46,7 @@ data:
               uri: lb://auth-service
               predicates:
                 - Path=/api/auth-service/**
-                - Method=GET,POST,PUT,DELETE
+                - Method=GET,POST,PUT,DELETE,PATCH
      
             - id: requestform-service
               uri: lb://requestform-service
