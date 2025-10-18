@@ -160,6 +160,48 @@ data:
                       - OWNER
                       - TENANT
                       - VENDOR
+                      
+            - id: post-service
+              uri: lb://post-service
+              predicates:
+                - Path=/api/post-service/**
+                - Method=GET,POST,PUT,DELETE
+              filters:
+                - JwtAuthFilter
+                - name: RoleFilter
+                  args:
+                    allowedRoles:
+                      - OWNER
+                      - TENANT
+                      - VENDOR      
+            
+            - id: notice-service
+              uri: lb://notice-service
+              predicates:
+                - Path=/api/notice-service/**
+                - Method=GET,POST,PUT,DELETE
+              filters:
+                - JwtAuthFilter
+                - name: RoleFilter
+                  args:
+                    allowedRoles:
+                      - OWNER
+                      - TENANT
+                      - VENDOR
+            
+            - id: review-service
+              uri: lb://review-service
+              predicates:
+                - Path=/api/review-service/**
+                - Method=GET,POST,PUT,DELETE
+              filters:
+                - JwtAuthFilter
+                - name: RoleFilter
+                  args:
+                    allowedRoles:
+                      - OWNER
+                      - TENANT
+                      - VENDOR  
     
     jwt:
       secret: ${JWT_SECRET}
