@@ -76,7 +76,7 @@ data:
                       - VENDOR
     
             - id: chatting-service-ws
-              uri: lb:ws://chatting-service
+              uri: lb://chatting-service
               predicates:
                 - Path=/ws-stomp/** 
      
