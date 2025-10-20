@@ -74,6 +74,11 @@ data:
                       - OWNER
                       - TENANT
                       - VENDOR
+    
+            - id: chatting-service-ws
+              uri: lb:ws://chatting-service
+              predicates:
+                - Path=/ws-stomp/** 
      
             - id: infra-service
               uri: lb://infra-service
