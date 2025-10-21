@@ -54,3 +54,5 @@ data:
         url: http://estimate-service.hotketok.svc.cluster.local:8094 
       requestform-service:
         url: http://requestform-service.hotketok.svc.cluster.local:8093
+      review-service:
+        url: http://review-service.hotketok.svc.cluster.local:8095
