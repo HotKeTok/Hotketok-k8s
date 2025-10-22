@@ -29,7 +29,7 @@ data:
                 name: infra-service-config
     
     cloud:
-      provider: aws
+      provider: ncloud
       
     eureka:
       client:
@@ -42,7 +42,16 @@ data:
         credentials:
           accessKey: ${S3_ACCESSKEY}
           secretKey: ${S3_SECRETKEY}
-    
+          
+    ncloud:
+      s3:
+        endpoint: https://kr.object.ncloudstorage.com
+        region: kr-standard
+        bucket-name: contest57-image
+        credentials:
+          accessKey: ${NCLOUD_ACCESS_KEY}
+          secretKey: ${NCLOUD_SECRET_KEY}
+          
     searchApi:
       secretKey: ${SEARCH_API_KEY}
     
