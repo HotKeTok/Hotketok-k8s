@@ -38,6 +38,9 @@ data:
     eureka:
       client:
         enabled: false
+    
+    jwt:
+      accessKey: ${JWT_SECRET}
         
     logging:
       level:
