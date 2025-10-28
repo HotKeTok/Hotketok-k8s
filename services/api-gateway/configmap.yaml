@@ -36,8 +36,8 @@ data:
                 allowedCredentials: true
                 allowedOriginPatterns:
                   - "http://localhost:*"
-                  - "https://*.hotketok.com"
-                  - "https://*.hotketok-vendor.com"
+                  - "https://*.hotketok.shop"
+                  - "https://*.hotketok-vendor.shop"
                 allowedHeaders: "*"
                 allowedMethods: "*"
           
