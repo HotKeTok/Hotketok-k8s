@@ -56,3 +56,5 @@ data:
         url: http://requestform-service.hotketok.svc.cluster.local:8093
       review-service:
         url: http://review-service.hotketok.svc.cluster.local:8095
+      chatting-service:
+        url: http://chatting-service.hotketok.svc.cluster.local:8096
