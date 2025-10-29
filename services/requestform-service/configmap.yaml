@@ -63,4 +63,6 @@ data:
       house-service:
         url: http://house-service.hotketok.svc.cluster.local:8090
       estimate-service:
-        url: http://estimate-service.hotketok.svc.cluster.local:8094 # estimate-service의 주소
+        url: http://estimate-service.hotketok.svc.cluster.local:8094 
+      chatting-service:
+        url: http://chatting-service/hotketok.svc.cluster.local:8096
