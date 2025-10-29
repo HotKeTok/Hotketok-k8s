@@ -36,8 +36,8 @@ data:
                 allowedCredentials: true
                 allowedOriginPatterns:
                   - "http://localhost:*"
-                  - "https://*.hotketok.com"
-                  - "https://*.hotketok-vendor.com"
+                  - "https://*.hotketok.shop"
+                  - "https://*.hotketok-vendor.shop"
                 allowedHeaders: "*"
                 allowedMethods: "*"
           
@@ -74,7 +74,12 @@ data:
                       - OWNER
                       - TENANT
                       - VENDOR
-     
+                      
+            - id: chatting-service-ws
+              uri: lb://chatting-service
+              predicates:
+                - Path=/ws-stomp/**
+    
             - id: infra-service
               uri: lb://infra-service
               predicates:
