@@ -38,3 +38,5 @@ data:
         url: http://requestform-service.hotketok.svc.cluster.local:8093
       vendor-service:
         url: http://vendor-service.hotketok.svc.cluster.local:8099
+      chatting-service:
+        url: http://chatting-service.hotketok.svc.cluster.local:8096
