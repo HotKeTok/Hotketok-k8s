@@ -21,6 +21,8 @@ spec:
       containers:
         - name: house-service
           image: contest57-registry-real.kr.ncr.ntruss.com/hotketok/hotketok-house-service:latest
+          imagePullPolicy: Always
+
           ports:
             - containerPort: 8090
           env:

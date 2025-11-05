@@ -21,6 +21,8 @@ spec:
       containers:
         - name: post-service
           image: contest57-registry-real.kr.ncr.ntruss.com/hotketok/hotketok-post-service:latest
+          imagePullPolicy: Always
+
           ports:
             - containerPort: 8097
           env:
